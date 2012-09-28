@@ -12,7 +12,9 @@ To use this follow these steps:
 $ cd ~
 $ apt-get install git
 $ git clone git://github.com/adampresley/debian-tomcat-bootstrap.git
+$
 $ cd debian-tomcat-bootstrap
+$ chmod +x ./install.sh
 $ ./install.sh 256 512
 ```
 
