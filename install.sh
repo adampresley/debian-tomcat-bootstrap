@@ -28,6 +28,8 @@ mkdir -p /usr/lib/jvm/jdk1.7.0
 mv ./jdk1.7.0/* /usr/lib/jvm/jdk1.7.0/
 rm -f ./jdk1.7.0
 
+exit 1
+
 #
 # Tell Debian about this new Java
 #
@@ -58,8 +60,8 @@ chmod +x /opt/tomcat/bin/*.sh
 cp ./tomcat /etc/init.d/
 chmod 755 /etc/init.d/tomcat
 
-sed -i 's/-Xms1m/-Xms$1m/g' /etc.init.d/tomcat
-sed -i 's/-Xmx1m/-Xmx$2m/g' /etc.init.d/tomcat
+sed -i 's/-Xms1m/-Xms$1m/g' /etc/init.d/tomcat
+sed -i 's/-Xmx1m/-Xmx$2m/g' /etc/init.d/tomcat
 
 
 #
