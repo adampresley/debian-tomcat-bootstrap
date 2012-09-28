@@ -19,6 +19,12 @@ fi
 
 
 #
+# Potential cleanup
+#
+rm *.gz
+
+
+#
 # Download and setup JDK 7 (1.7.0)
 #
 wget http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-x64.tar.gz
