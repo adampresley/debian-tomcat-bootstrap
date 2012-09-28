@@ -13,4 +13,9 @@ $ cd ~
 $ apt-get install git
 $ git clone git://github.com/adampresley/debian-tomcat-bootstrap.git
 $ cd debian-tomcat-bootstrap
-$ 
+$ ./install.sh 256 512
+```
+
+Note that there are two arguments for the install script. These are 
+the minimum and maximum heap size to use for the JVM. Set these to 
+whatever your needs are.
