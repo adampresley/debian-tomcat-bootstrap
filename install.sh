@@ -25,9 +25,16 @@ rm *.gz
 
 
 #
-# Download and setup JDK 7 (1.7.0)
+# JDK 7 (1.7.0). I haven't figured out how to download this
+# automagically, cause you have to accept user agreement.
+# So this will check the current directory for the tar file.
 #
-wget http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-x64.tar.gz
+#wget http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-x64.tar.gz
+if [ ! -f "./jdk-7-linux-x64.tar.gz" ]; then
+	echo "You must first download and place the JDK 1.7.0 tar file in this directory."
+	exit 1
+fi
+
 tar xcvf ./jdk-7-linux-x64.tar.gz
 
 mkdir -p /usr/lib/jvm/jdk1.7.0
