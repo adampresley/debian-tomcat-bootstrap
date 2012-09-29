@@ -19,29 +19,25 @@ fi
 
 
 #
-# Potential cleanup
-#
-rm *.gz
-
-
-#
 # JDK 7 (1.7.0). I haven't figured out how to download this
 # automagically, cause you have to accept user agreement.
 # So this will check the current directory for the tar file.
 #
-#wget http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-x64.tar.gz
-if [ ! -f "./jdk-7-linux-x64.tar.gz" ]; then
+if [ -d "/usr/lib/jvm/jdk1.7.0/" ]; then
+	rm -f -r /usr/lib/jvm/jdk1.7.0/
+fi
+
+if [ ! -f "jdk-7-linux-x64.tar.gz" ]; then
 	echo "You must first download and place the JDK 1.7.0 tar file in this directory."
 	exit 1
 fi
 
-tar xcvf ./jdk-7-linux-x64.tar.gz
+tar xvzf ./jdk-7-linux-x64.tar.gz
 
 mkdir -p /usr/lib/jvm/jdk1.7.0
 mv ./jdk1.7.0/* /usr/lib/jvm/jdk1.7.0/
-rm -f ./jdk1.7.0
+rm -f -r ./jdk1.7.0/
 
-exit 1
 
 #
 # Tell Debian about this new Java
@@ -57,13 +53,27 @@ update-alternatives --set javac /usr/lib/jvm/jdk1.7.0/bin/javac
 #
 # Now, download Tomcat 7.0.30 
 #
+if [ -f "apache-tomcat-7.0.30.tar.gz" ]; then
+	rm ./apache-tomcat-7.0.30.tar.gz
+fi
+
 wget http://apache.petsads.us/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.tar.gz
-tar xcvf ./apache-tomcat-7.0.30.tar.gz
+tar xvzf ./apache-tomcat-7.0.30.tar.gz
+
+if [ -d "/opt/apache-tomcat-7.0.30/" ]; then
+	rm -f -r /opt/apache-tomcat-7.0.30/
+fi
+
+if [ -h "/opt/tomcat" ]; then
+	rm /opt/tomcat
+fi
 
 mv ./apache-tomcat-7.0.30 /opt
-ln -s /opt/tomcat /opt/apache-tomcat-7.0.30
+ln -s /opt/apache-tomcat-7.0.30/ /opt/tomcat
 
 chmod +x /opt/tomcat/bin/*.sh
+
+rm -f -r ./apache-tomcat-7.0.30/
 
 
 #
@@ -73,8 +83,8 @@ chmod +x /opt/tomcat/bin/*.sh
 cp ./tomcat /etc/init.d/
 chmod 755 /etc/init.d/tomcat
 
-sed -i 's/-Xms1m/-Xms$1m/g' /etc/init.d/tomcat
-sed -i 's/-Xmx1m/-Xmx$2m/g' /etc/init.d/tomcat
+sed -i "s/-Xms1m/-Xms$1m/g" /etc/init.d/tomcat
+sed -i "s/-Xmx1m/-Xmx$2m/g" /etc/init.d/tomcat
 
 
 #
