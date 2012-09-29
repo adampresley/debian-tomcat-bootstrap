@@ -6,6 +6,10 @@ This will setup JDK 7 as the default Java installation, download
 Tomcat into the */opt* directory, and install an **init.d** service
 script.
 
+Before you do anything, however, you'll need to download the 
+Oracle JDK 1.7.0 tar file and copy this to the debian-tomcat-boostrap
+directory created during the clone process.
+
 To use this follow these steps:
 
 ```bash
